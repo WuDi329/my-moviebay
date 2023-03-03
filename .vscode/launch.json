@@ -1,0 +1,48 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'moviebay'",
+            "cargo": {
+                "args": [
+                    // 这里加入参数，尝试debug，如果去掉下面这一行，会报错，有关rust的版本问题
+                    "+1.50.0",
+                    "build",
+                    "--bin=moviebay",
+                    "--package=moviebay"
+                ],
+                "filter": {
+                    "name": "moviebay",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'moviebay'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=moviebay",
+                    "--package=moviebay"
+                ],
+                "filter": {
+                    "name": "moviebay",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
