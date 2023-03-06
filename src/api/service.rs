@@ -76,6 +76,7 @@ impl Service<Request<Body>> for ApiService {
     }
 }
 
+// 定义结构体MakeApiSvc，其中包含两个属性config和db
 pub struct MakeApiSvc {
     config: SharedCfg,
     db: SharedDb,

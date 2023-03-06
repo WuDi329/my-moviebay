@@ -55,9 +55,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // sqlite.save().await?;
 
+
+    // 前端的第一个link，访问了http://localhost:3000/stream/1这个地址
     let addr = ([127, 0, 0, 1], 3000).into();
 
     // 这里初始化了MakeApiSvc 的new方法
+    // 使用了config和sqlite进行了配置的初始化，并且绑定到server
     let server = Server::bind(&addr).serve(MakeApiSvc::new(config, sqlite));
     println!("Listening on http://{}", addr);
 
