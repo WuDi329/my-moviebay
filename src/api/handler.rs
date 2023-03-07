@@ -34,8 +34,10 @@ pub async fn get_movie(db: SharedDb, id: i32) -> Result<Response<Body>, hyper::E
     Ok(json!(&movie))
 }
 
+// get_stream的具体实现
 pub async fn get_stream(
     db: SharedDb,
+    // 用来在多个线程中复用的指针
     config: Arc<Config>,
     id: i32,
 ) -> Result<Response<Body>, hyper::Error> {
