@@ -37,6 +37,7 @@ pub struct Route {
     pub params: Vec<String>,
 }
 
+// // Route是一个结构体，包含了匹配的方法，匹配路径，路径携带的额外参数，route的name
 impl Route {
     pub fn get(path: &str) -> RouteBuilder {
         // Method::GET 是 hyper 库中的一个枚举类型，用于表示 HTTP GET 方法。
