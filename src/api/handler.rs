@@ -34,6 +34,7 @@ pub async fn get_movie(db: SharedDb, id: i32) -> Result<Response<Body>, hyper::E
     Ok(json!(&movie))
 }
 
+// 第二步：执行get_stream
 // get_stream的具体实现
 pub async fn get_stream(
     db: SharedDb,
@@ -45,14 +46,19 @@ pub async fn get_stream(
     // let _movie = table.by_id(id).await.unwrap();
 
     let config = Arc::new(config.ffmpeg.clone());
+
+    // 创建ffmpeg，使用相应的config进行初始化
     let ffmpeg = FFmpeg::new(config);
+
+    // Runtime::channel()创建一个带有关联的发送者一半的主体流。当想要从另一个线程流式传输chunk时很有用。
     let (tx, body) = Body::channel();
 
-    // 这里调用了ffmpeg下的transcode方法
+    // 这里使用了多线程，开启新的线程调用了ffmpeg下的transcode方法
     tokio::spawn(async move {
         ffmpeg.transcode("h264.mkv", tx).await;
     });
 
+    // 这里构建给前端的返回值
     let resp = Response::builder()
         .header("Content-Type", "video/mp4")
         .header("Content-Disposition", "inline")

@@ -17,6 +17,8 @@ use hyper::Server;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // 这里使用config::new()初始化了context
+    // ctx中的db来源于config.database的复制
     let ctx = Context::from_config(Config::new());
     //config 的sqlite和config 来源于ctx
     let sqlite = ctx.db();

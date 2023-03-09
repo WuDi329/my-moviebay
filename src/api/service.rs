@@ -60,7 +60,9 @@ impl Service<Request<Body>> for ApiService {
         Poll::Ready(Ok(()))
     }
 
+    // 在调试程序时，这里是第一个进入的程序
     fn call(&mut self, req: Request<Body>) -> Self::Future {
+        println!("{:?}", req);
         // 这里调用router的is_match方法，返回了相关的Route
         if let Some(route) = self.router.is_match(req.uri().path()) {
             let res: Handler = match route.name.as_ref() {
@@ -76,6 +78,7 @@ impl Service<Request<Body>> for ApiService {
                     // // 获取url携带的其他参数
                     let id = route.params[0].parse().unwrap();
                     Box::pin(handler::get_stream(
+                        // 将config中的db与config进行复制
                         self.db.clone(),
                         self.config.clone(),
                         id,

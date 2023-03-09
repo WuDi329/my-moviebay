@@ -12,7 +12,7 @@
             "cargo": {
                 "args": [
                     // 这里加入参数，尝试debug，如果去掉下面这一行，会报错，有关rust的版本问题
-                    "+1.50.0",
+                    "+1.56.0",
                     "build",
                     "--bin=moviebay",
                     "--package=moviebay"

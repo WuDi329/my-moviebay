@@ -28,6 +28,19 @@
       "-preset", 
       "ultrafast", 
       "-movflags", 
+      # 有关faststart 
+      # 正常情况下，MP4复用器在文件末尾的音频流（“mdat”原子） 之后写入“moov”原子。
+      # 这导致用户需要在播放之前完全下载文件。
+      # faststart 将 moov前移，会更快
+
+      # 有关 frag_keyframe
+      # 输出的视频将会是分片的，fragment
+
+      # 有关 empty_moov
+      # empty_moov will cause output to be 100% fragmented; 
+      # without this the first fragment will be muxed as a short movie (using moov) followed by the rest of the media in fragments,
+
       "frag_keyframe+empty_moov+faststart", 
+      # number 是对应于管道文件描述符的数字（例如，0 代表 stdin，1 代表 stdout，2 代表 stderr
       "pipe:1"
     ]

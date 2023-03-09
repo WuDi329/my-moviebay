@@ -11,7 +11,9 @@ pub struct Context {
 
 impl Context {
     pub fn from_config(config: SharedCfg) -> SharedCtx {
+
         let (db, rt) = Runtime::channel(config.database.clone());
+        
         rt.run();
 
         Arc::new(Context { db, config })
